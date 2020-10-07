@@ -14,8 +14,8 @@ function authenticatedUserGroups(user, groupNameAttribute) {
   return [
     user.cn,
     // _groups or memberOf could be single els or arrays.
-    ...user._groups ? [].concat(user._groups).map((group) => group[groupNameAttribute]) : [],
-    ...user.memberOf ? [].concat(user.memberOf).map((groupDn) => rfc2253.parse(groupDn).get('CN')) : [],
+    ...user._groups ? [].concat(user._groups).map((group) => group[groupNameAttribute].split(' ').join('_')) : [],
+    ...user.memberOf ? [].concat(user.memberOf).map((groupDn) => rfc2253.parse(groupDn).get('CN').split(' ').join('_')) : [],
   ];
 }
 
